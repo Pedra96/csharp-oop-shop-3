@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpShop3.CustomException;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace CSharpShop3 {
         private string descrizione;
         private int id;
         private double prezzocompleto;
+        public ProdottoBase() {
+
+        }
         public ProdottoBase(string nome, double prezzo, double peso, double iva, string descrizione = "") {
             this.nome = nome;
             SetPrezzo(prezzo);
@@ -30,9 +34,11 @@ namespace CSharpShop3 {
             this.nome = nome;
         }
         public void SetPrezzo(double prezzo) {
-            if (prezzo < 0) {
-                this.prezzo = 0;
-            } else { this.prezzo = prezzo; }
+            if (prezzo <= 0) {
+                throw new UnexpectedParameterException("inserire un prezzo maggiore di 0");
+            } else { 
+                this.prezzo = prezzo; 
+            }
         }
         public void SetPrezzoConIva() {
             this.prezzocompleto = Math.Round(this.prezzo + (GetPrezzo() * GetIva() / 100), 2);

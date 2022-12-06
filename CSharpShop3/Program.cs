@@ -16,9 +16,25 @@ nel vostro negozio online.
 BONUS:
 Continuare gli stessi ragionamenti anche per tutte le altre sottoclassi che avevate pensato, come il sacchetto di frutta, l’elettrodomestico e così via.*/
 using CSharpShop3;
+using CSharpShop3.CustomException;
 
+bool flag = false;
 var Prodotto1 = new Elettrodomestico("Fornello", 12, 23, 4, 12, "europea", "bosh", "Fornello da cucina ad induzione");
 var Prodotto2 = new Acqua(1.456, 4.67832, "Acqua Naturale", 2, 200, 4, "bottiglia d'acqua bella fresca", "ghiacciaio dietro casa mia è buona fidati");
+Acqua Prodotto3 = new();
+
+while (flag == false) {
+    try {
+        Prodotto3.SetPh(Double.Parse(Console.ReadLine()));
+        flag = true;
+    }
+    catch (FormatException e) {
+        Console.WriteLine(e.Message);
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+}
 Prodotto1.StampaProdotto();
 
 Console.WriteLine(Prodotto2);
