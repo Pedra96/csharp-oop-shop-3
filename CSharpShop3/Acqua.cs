@@ -37,13 +37,21 @@ namespace CSharpShop3 {
                 throw new UnexpectedParameterException("Hai inserito un valore non valido");
             } else {
                 this.CapienzaMax = Math.Round(CapienzaMax, 2);
+                LitriCorrenti = this.CapienzaMax;
             }
         }
         public void SetPh(double ph) {
             if (ph < 0 || ph > 14.00) {
                 throw new UnexpectedParameterException("il Ph non può essere negativo o maggiore di 14");
             } else {
-                this.pH=Math.Round(ph, 2);
+                this.pH = Math.Round(ph, 2);
+            }
+        }
+        public void SetSorgente(string sorgente) {
+            if (sorgente == "") {
+                throw new UnexpectedParameterException("non hai inserito un nome");
+            } else {
+                this.sorgente = sorgente;
             }
         }
 

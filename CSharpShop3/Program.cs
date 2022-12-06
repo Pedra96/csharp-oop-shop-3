@@ -17,6 +17,7 @@ BONUS:
 Continuare gli stessi ragionamenti anche per tutte le altre sottoclassi che avevate pensato, come il sacchetto di frutta, l’elettrodomestico e così via.*/
 using CSharpShop3;
 using CSharpShop3.CustomException;
+using System.Runtime.CompilerServices;
 
 bool flag = false;
 var Prodotto1 = new Elettrodomestico("Fornello", 12, 23, 4, 12, "europea", "bosh", "Fornello da cucina ad induzione");
@@ -24,7 +25,80 @@ var Prodotto2 = new Acqua(1.456, 4.67832, "Acqua Naturale", 2, 200, 4, "bottigli
 Acqua Prodotto3 = new();
 
 while (flag == false) {
+    // *nome,*prezzo,*peso,*iva,*descrizione,*capienzamax,sorgente,*ph
     try {
+        Console.WriteLine("Inserire nome della bottiglia");
+        Prodotto3.SetNome(Console.ReadLine());
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire il prezzo");
+        Prodotto3.SetPrezzo(Double.Parse(Console.ReadLine()));
+    }
+    catch (FormatException e) {
+        Console.WriteLine(e.Message);
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire il peso");
+        Prodotto3.SetPeso(Double.Parse(Console.ReadLine()));
+    }
+    catch (FormatException e) {
+        Console.WriteLine(e.Message);
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire l'iva");
+        Prodotto3.SetIva(Double.Parse(Console.ReadLine()));
+    }
+    catch (FormatException e) {
+        Console.WriteLine(e.Message);
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire la descrizione");
+        Prodotto3.SetDescrizione(Console.ReadLine());
+    }
+    catch (FormatException e) {
+        Console.WriteLine(e.Message);
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire la capienza massima");
+        Prodotto3.SetCapienzaMax(Double.Parse(Console.ReadLine()));
+    }
+    catch (FormatException e) {
+        Console.WriteLine(e.Message);
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire sorgente");
+        Prodotto3.SetNome(Console.ReadLine());
+    }
+    catch (UnexpectedParameterException e) {
+        Console.WriteLine(e.Message);
+    }
+
+    try {
+        Console.WriteLine("Inserire il ph della bottiglia");
         Prodotto3.SetPh(Double.Parse(Console.ReadLine()));
         flag = true;
     }
@@ -34,7 +108,10 @@ while (flag == false) {
     catch (UnexpectedParameterException e) {
         Console.WriteLine(e.Message);
     }
+    Prodotto3.SetId();
+    Prodotto3.SetPrezzoConIva();
 }
+Prodotto3.StampaProdotto();
 Prodotto1.StampaProdotto();
 
 Console.WriteLine(Prodotto2);
@@ -43,3 +120,5 @@ Prodotto2.RiempiBottiglia(-0.4);
 Console.WriteLine(Prodotto2.GetLitri());
 Prodotto2.BeviAcqua(-1);
 Prodotto2.BeviAcqua(1);
+Console.WriteLine("prodotti creati: " + ProdottoBase.contatore);
+Console.WriteLine("il valore in galloni è: "+ConvertitoreLitriInGalloni.Convertitore(Prodotto3.GetLitri()));
