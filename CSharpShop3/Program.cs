@@ -19,98 +19,63 @@ using CSharpShop3;
 using CSharpShop3.CustomException;
 using System.Runtime.CompilerServices;
 
-bool flag = false;
 var Prodotto1 = new Elettrodomestico("Fornello", 12, 23, 4, 12, "europea", "bosh", "Fornello da cucina ad induzione");
 var Prodotto2 = new Acqua(1.456, 4.67832, "Acqua Naturale", 2, 200, 4, "bottiglia d'acqua bella fresca", "ghiacciaio dietro casa mia è buona fidati");
-Acqua Prodotto3 = new();
+Acqua Prodotto3 = new Acqua();
 
-while (flag == false) {
-    // *nome,*prezzo,*peso,*iva,*descrizione,*capienzamax,sorgente,*ph
-    try {
-        Console.WriteLine("Inserire nome della bottiglia");
-        Prodotto3.SetNome(Console.ReadLine());
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
 
-    try {
-        Console.WriteLine("Inserire il prezzo");
-        Prodotto3.SetPrezzo(Double.Parse(Console.ReadLine()));
-    }
-    catch (FormatException e) {
-        Console.WriteLine(e.Message);
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
 
-    try {
-        Console.WriteLine("Inserire il peso");
-        Prodotto3.SetPeso(Double.Parse(Console.ReadLine()));
-    }
-    catch (FormatException e) {
-        Console.WriteLine(e.Message);
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
+Console.WriteLine("Inserire nome della bottiglia");
+SanificatoreInput("Nome", Console.ReadLine(),Prodotto3);
 
-    try {
-        Console.WriteLine("Inserire l'iva");
-        Prodotto3.SetIva(Double.Parse(Console.ReadLine()));
-    }
-    catch (FormatException e) {
-        Console.WriteLine(e.Message);
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
+Console.WriteLine("Inserire prezzo:");
+SanificatoreInput("Prezzo", Console.ReadLine(), Prodotto3);
 
-    try {
-        Console.WriteLine("Inserire la descrizione");
-        Prodotto3.SetDescrizione(Console.ReadLine());
-    }
-    catch (FormatException e) {
-        Console.WriteLine(e.Message);
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
+Console.WriteLine("Inserire peso:");
+SanificatoreInput("Peso", Console.ReadLine(), Prodotto3);
 
-    try {
-        Console.WriteLine("Inserire la capienza massima");
-        Prodotto3.SetCapienzaMax(Double.Parse(Console.ReadLine()));
-    }
-    catch (FormatException e) {
-        Console.WriteLine(e.Message);
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
+Console.WriteLine("Inserire iva:");
+SanificatoreInput("Iva", Console.ReadLine(), Prodotto3);
 
-    try {
-        Console.WriteLine("Inserire sorgente");
-        Prodotto3.SetNome(Console.ReadLine());
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
+Console.WriteLine("Inserire descrizione:");
+SanificatoreInput("Descrizione", Console.ReadLine(), Prodotto3);
 
-    try {
-        Console.WriteLine("Inserire il ph della bottiglia");
-        Prodotto3.SetPh(Double.Parse(Console.ReadLine()));
-        flag = true;
-    }
-    catch (FormatException e) {
-        Console.WriteLine(e.Message);
-    }
-    catch (UnexpectedParameterException e) {
-        Console.WriteLine(e.Message);
-    }
-    Prodotto3.SetId();
-    Prodotto3.SetPrezzoConIva();
-}
+Console.WriteLine("Inserire capienza massima:");
+SanificatoreInput("CapienzaMax", Console.ReadLine(), Prodotto3);
+
+Console.WriteLine("Inserire sorgente:");
+SanificatoreInput("Sorgente", Console.ReadLine(), Prodotto3);
+
+Console.WriteLine("Inserire ph:");
+SanificatoreInput("Ph", Console.ReadLine(), Prodotto3);
+
+
+/*
+Console.WriteLine("Inserire il prezzo");
+Prodotto3.SetPrezzo(Double.Parse(Console.ReadLine()));
+
+Console.WriteLine("Inserire il peso");
+Prodotto3.SetPeso(Double.Parse(Console.ReadLine()));
+
+Console.WriteLine("Inserire l'iva");
+Prodotto3.SetIva(Double.Parse(Console.ReadLine()));
+
+Console.WriteLine("Inserire la descrizione");
+Prodotto3.SetDescrizione(Console.ReadLine());
+
+Console.WriteLine("Inserire la capienza massima");
+Prodotto3.SetCapienzaMax(Double.Parse(Console.ReadLine()));
+
+Console.WriteLine("Inserire sorgente");
+Prodotto3.SetNome(Console.ReadLine());
+
+Console.WriteLine("Inserire il ph della bottiglia");
+Prodotto3.SetPh(Double.Parse(Console.ReadLine()));
+*/
+
+Prodotto3.SetId();
+Prodotto3.SetPrezzoConIva();
+
 Prodotto3.StampaProdotto();
 Prodotto1.StampaProdotto();
 
@@ -121,4 +86,55 @@ Console.WriteLine(Prodotto2.GetLitri());
 Prodotto2.BeviAcqua(-1);
 Prodotto2.BeviAcqua(1);
 Console.WriteLine("prodotti creati: " + ProdottoBase.contatore);
-Console.WriteLine("il valore in galloni è: "+ConvertitoreLitriInGalloni.Convertitore(Prodotto3.GetLitri()));
+Console.WriteLine("il valore in galloni è: " + ConvertitoreLitriInGalloni.Convertitore(Prodotto3.GetLitri()));
+
+void SanificatoreInput(string Attributo, string? Input, ProdottoBase Oggetto) {
+    while (true) {
+        try {
+            switch (Attributo) {
+                case "Nome":
+                    Oggetto.SetNome(Input);
+                    break;
+                case "Prezzo":
+                    Oggetto.SetPrezzo(Double.Parse(Input));
+                    break;
+                case "Peso":
+                    Oggetto.SetPeso(Double.Parse(Input));
+                    break;
+                case "Iva":
+                    Oggetto.SetIva(Double.Parse(Input));
+                    break;
+                case "Descrizione":
+                    Oggetto.SetDescrizione(Input);
+                    break;
+                
+            }
+            if(Oggetto.GetType() == typeof(Acqua)) {
+                Acqua OggettoAcqua= (Acqua)Oggetto;
+                switch (Attributo) {
+                    case "CapienzaMax":
+                        OggettoAcqua.SetCapienzaMax(Double.Parse(Input));
+                        break;
+                    case "Sorgente":
+                        OggettoAcqua.SetSorgente(Input);
+                        break;
+                    case "Ph":
+                        OggettoAcqua.SetPh(Double.Parse(Input));
+                        break;
+                }
+            }
+            break;
+
+        }
+        catch (FormatException e) {
+            Console.WriteLine(e.Message);
+            Console.WriteLine("Inserire nuovo valore:");
+            Input = Console.ReadLine();
+        }
+        catch (UnexpectedParameterException e) {
+            Console.WriteLine(e.Message);
+            Console.WriteLine("Inserire nuovo valore:");
+            Input=Console.ReadLine();
+        }
+    }
+}

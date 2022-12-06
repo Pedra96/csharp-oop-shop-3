@@ -34,6 +34,7 @@ namespace CSharpShop3 {
         }
         public void SetNome(string nome) {
             if (nome=="") {
+
                 throw new UnexpectedParameterException("non hai inserito un nome");
             } else {
                 this.nome = nome;
