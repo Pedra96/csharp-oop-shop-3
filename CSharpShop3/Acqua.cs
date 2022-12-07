@@ -62,10 +62,10 @@ namespace CSharpShop3 {
         public void RiempiBottiglia(double litri) {
             if (litri > this.CapienzaMax || (this.LitriCorrenti + litri) > this.CapienzaMax) {
                 this.LitriCorrenti = this.CapienzaMax - 0.2;
-                Console.WriteLine($"hai aggiunto troppa acqua e ora hai il pavimento è bagnato,litri correnti: {this.LitriCorrenti}L");
+                Console.WriteLine($"hai aggiunto troppa acqua e ora hai il pavimento bagnato,litri correnti: {this.LitriCorrenti}L");
             } else if (litri < 0) {
                 this.LitriCorrenti = 0;
-                Console.WriteLine($"sei riuscito a fare una cosa illegale creando un buco nero... litri correnti {this.LitriCorrenti}L");
+                Console.WriteLine($"sei riuscito a fare una cosa illegale creando un buco nero... litri correnti: {this.LitriCorrenti}L");
             } else {
                 this.LitriCorrenti = this.LitriCorrenti + litri;
             }

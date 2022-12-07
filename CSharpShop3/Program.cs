@@ -22,11 +22,11 @@ using System.Runtime.CompilerServices;
 var Prodotto1 = new Elettrodomestico("Fornello", 12, 23, 4, 12, "europea", "bosh", "Fornello da cucina ad induzione");
 var Prodotto2 = new Acqua(1.456, 4.67832, "Acqua Naturale", 2, 200, 4, "bottiglia d'acqua bella fresca", "ghiacciaio dietro casa mia è buona fidati");
 Acqua Prodotto3 = new Acqua();
-
+Elettrodomestico lavatrice = new();
 
 
 Console.WriteLine("Inserire nome della bottiglia");
-SanificatoreInput("Nome", Console.ReadLine(),Prodotto3);
+SanificatoreInput("Nome", Console.ReadLine(), Prodotto3);
 
 Console.WriteLine("Inserire prezzo:");
 SanificatoreInput("Prezzo", Console.ReadLine(), Prodotto3);
@@ -48,43 +48,48 @@ SanificatoreInput("Sorgente", Console.ReadLine(), Prodotto3);
 
 Console.WriteLine("Inserire ph:");
 SanificatoreInput("Ph", Console.ReadLine(), Prodotto3);
-
-
-/*
-Console.WriteLine("Inserire il prezzo");
-Prodotto3.SetPrezzo(Double.Parse(Console.ReadLine()));
-
-Console.WriteLine("Inserire il peso");
-Prodotto3.SetPeso(Double.Parse(Console.ReadLine()));
-
-Console.WriteLine("Inserire l'iva");
-Prodotto3.SetIva(Double.Parse(Console.ReadLine()));
-
-Console.WriteLine("Inserire la descrizione");
-Prodotto3.SetDescrizione(Console.ReadLine());
-
-Console.WriteLine("Inserire la capienza massima");
-Prodotto3.SetCapienzaMax(Double.Parse(Console.ReadLine()));
-
-Console.WriteLine("Inserire sorgente");
-Prodotto3.SetNome(Console.ReadLine());
-
-Console.WriteLine("Inserire il ph della bottiglia");
-Prodotto3.SetPh(Double.Parse(Console.ReadLine()));
-*/
-
 Prodotto3.SetId();
 Prodotto3.SetPrezzoConIva();
 
+Console.WriteLine("Inserire nome della bottiglia");
+SanificatoreInput("Nome", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire prezzo:");
+SanificatoreInput("Prezzo", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire peso:");
+SanificatoreInput("Peso", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire iva:");
+SanificatoreInput("Iva", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire descrizione:");
+SanificatoreInput("Descrizione", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire consumo:");
+SanificatoreInput("Consumo", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire tipo di presa:");
+SanificatoreInput("Presa", Console.ReadLine(), lavatrice);
+
+Console.WriteLine("Inserire la marca:");
+SanificatoreInput("Marca", Console.ReadLine(), lavatrice);
+
+
+
+
+
+
 Prodotto3.StampaProdotto();
+lavatrice.StampaProdotto();
 Prodotto1.StampaProdotto();
 
-Console.WriteLine(Prodotto2);
+/*Console.WriteLine(Prodotto2);
 Console.WriteLine(Prodotto2.GetLitri());
 Prodotto2.RiempiBottiglia(-0.4);
 Console.WriteLine(Prodotto2.GetLitri());
 Prodotto2.BeviAcqua(-1);
-Prodotto2.BeviAcqua(1);
+Prodotto2.BeviAcqua(1);*/
 Console.WriteLine("prodotti creati: " + ProdottoBase.contatore);
 Console.WriteLine("il valore in galloni è: " + ConvertitoreLitriInGalloni.Convertitore(Prodotto3.GetLitri()));
 
@@ -107,10 +112,10 @@ void SanificatoreInput(string Attributo, string? Input, ProdottoBase Oggetto) {
                 case "Descrizione":
                     Oggetto.SetDescrizione(Input);
                     break;
-                
+
             }
-            if(Oggetto.GetType() == typeof(Acqua)) {
-                Acqua OggettoAcqua= (Acqua)Oggetto;
+            if (Oggetto.GetType() == typeof(Acqua)) {
+                Acqua OggettoAcqua = (Acqua)Oggetto;
                 switch (Attributo) {
                     case "CapienzaMax":
                         OggettoAcqua.SetCapienzaMax(Double.Parse(Input));
@@ -120,6 +125,19 @@ void SanificatoreInput(string Attributo, string? Input, ProdottoBase Oggetto) {
                         break;
                     case "Ph":
                         OggettoAcqua.SetPh(Double.Parse(Input));
+                        break;
+                }
+            } else if (Oggetto.GetType() == typeof(Elettrodomestico)) {
+                Elettrodomestico OggettoElettrodomestico=(Elettrodomestico)Oggetto;
+                switch (Attributo) {
+                    case "Consumo":
+                        OggettoElettrodomestico.SetConsumo(int.Parse(Input));
+                        break;
+                    case "Presa":
+                        OggettoElettrodomestico.SetPresa(Input);
+                        break;
+                    case "Marca":
+                        OggettoElettrodomestico.SetMarca(Input);
                         break;
                 }
             }
@@ -134,7 +152,7 @@ void SanificatoreInput(string Attributo, string? Input, ProdottoBase Oggetto) {
         catch (UnexpectedParameterException e) {
             Console.WriteLine(e.Message);
             Console.WriteLine("Inserire nuovo valore:");
-            Input=Console.ReadLine();
+            Input = Console.ReadLine();
         }
     }
 }
